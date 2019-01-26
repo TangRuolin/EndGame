@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndGame", "EndGame.csproj", "{B70EA52A-352D-D4D9-7898-77B29E5D46D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndGame.Editor", "EndGame.Editor.csproj", "{8FBB513C-373A-93CE-DBD9-B9E081E829F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B70EA52A-352D-D4D9-7898-77B29E5D46D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B70EA52A-352D-D4D9-7898-77B29E5D46D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B70EA52A-352D-D4D9-7898-77B29E5D46D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B70EA52A-352D-D4D9-7898-77B29E5D46D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FBB513C-373A-93CE-DBD9-B9E081E829F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FBB513C-373A-93CE-DBD9-B9E081E829F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FBB513C-373A-93CE-DBD9-B9E081E829F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FBB513C-373A-93CE-DBD9-B9E081E829F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

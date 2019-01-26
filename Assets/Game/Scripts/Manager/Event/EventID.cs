@@ -54,6 +54,18 @@ namespace Game
             addAttackMonster = 302,
             removeAttackMonster = 303,
             clearMonsterList = 304,
+            damage = 305,
+        }
+
+        /// <summary>
+        /// 敌人事件ID，区间为（400,500）
+        /// </summary>
+        public enum EnemyEvent
+        {
+            addEnemy = 401,
+            removeEnemy = 402,
+            clearEnemyList = 403,
+            damage = 404,
         }
     }
 }

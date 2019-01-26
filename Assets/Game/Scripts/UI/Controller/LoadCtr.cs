@@ -60,8 +60,8 @@ namespace Game
         /// </summary>
         private void GetBGS()
         {
-            int k = Const.random.Next(0,GameManager.Instance.loadBG.Length);
-            BGImage = GameManager.Instance.loadBG[k];
+            //int k = Const.random.Next(0,GameManager.Instance.loadBG.Length);
+            //BGImage = GameManager.Instance.loadBG[k];
         }
 
     }

@@ -25,9 +25,12 @@ namespace Game
             }
         }
 
-        public int _attackNum { get; private set; }  //攻击次数，用于判断有没有触发强力攻击
+        private float blood;    //血量
+        private float attackNum;//玩家的攻击伤害
+
+        //public int _attackNum { get; private set; }  //攻击次数，用于判断有没有触发强力攻击
         public float moveSpe { get; private set; }  //玩家移动速度
-        private bool _isQuick;    //玩家是否快速移动
+        public bool isQuick;    //玩家是否快速移动
         public bool canMove { get; set; }
         private List<GameObject> arrows;
         public GameObject arrowModel;
@@ -44,9 +47,9 @@ namespace Game
         /// </summary>
         public void Init()
         {
-            _attackNum = 0;
+            attackNum = Const.playerAttackNum;
             moveSpe = 0;
-            _isQuick = false;
+            isQuick = false;
             canMove = true;
             EventMgr.Instance.Add((int)EventID.PlayerEvent.moveSpeChange,SetIsQuick);
             monsterList = new List<MonsterMeg>();
@@ -137,7 +140,7 @@ namespace Game
         private void SetIsQuick(object meg)
         {
             bool isQ = (bool)meg;
-            _isQuick = isQ;
+            isQuick = isQ;
         }
         //角色动画控制
         #region
@@ -147,8 +150,7 @@ namespace Game
         public void Attack()
         {
             //_attackNum++;
-            _attackNum = 1;
-            object meg = _attackNum;
+            object meg = 1;
             EventMgr.Instance.Trigger((int)EventID.AnimEvent.PlayerAttack,meg);
             //if (_attackNum == 3)
             //{
@@ -204,14 +206,13 @@ namespace Game
             prePos = lineCast.position;
             while(distance < Const.arrowMoveDis)
             {
-                
                 nowPos = lineCast.position;
                 RaycastHit hit;
                 if (Physics.Linecast(prePos, nowPos,out hit))
                 {
                     if(hit.collider.tag == "AI")
                     {
-                        MonsterDamage();
+                        MonsterDamage(hit.collider.gameObject);
                         arrow.SetActive(false);
                         break;
                     }
@@ -238,7 +239,7 @@ namespace Game
         public void Move()
         {
             float num;
-            if (_isQuick)
+            if (isQuick)
             {
                 moveSpe = Const.playerMoveSpeQ;
                 num = 1f;
@@ -265,9 +266,23 @@ namespace Game
         }
         #endregion
 
-        private void MonsterDamage()
+        /// <summary>
+        /// 怪物受伤
+        /// </summary>
+        /// <param name="go"></param>
+        private void MonsterDamage(GameObject go)
         {
-            Debug.Log("射击到敌人");
+            go.GetComponent<AICtr>().BeDamaged(attackNum);
+        }
+
+        /// <summary>
+        /// 玩家受伤
+        /// </summary>
+        /// <param name="meg"></param>
+        private void Damage(object meg)
+        {
+            float damage = (float)meg;
+
         }
 
     }

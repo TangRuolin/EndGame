@@ -18,6 +18,7 @@ namespace Game
         public const int playerMoveQTime = 5;//玩家加速后维持的时间
         public const float playerMoveChangeTime = 0.05f; //玩家从静止到移动的协程变化时间
         public const float playerAttackDis = 16;//玩家攻击范围
+        public const float playerAttackNum = 10;//玩家的伤害
 
         public const float attackTimeUnit = 1.5f;//玩家攻击的单位时间
         public const float attackTimeUnitQ = 1;//狂暴后玩家攻击的单位时间
@@ -29,12 +30,11 @@ namespace Game
 
         public const float aiViewDis = 50;//敌人的视野距离
         public const float aiViewAngle = 90;//敌人的视野角度范围
-        public const float aiAttackDis = 3;//敌人的攻击距离
+        public const float aiAttackDis = 4;//敌人的攻击距离
         public const float aiAttackAngle = 160;//敌人的攻击范围
 
-        public const float aiAttackStartWaitTime = 0.3f;//敌人攻击起始时间
-       // public const float aiAttackContinueTime = 0.15f;//敌人攻击的持续时间
-        public const float aiAttackBackTime = 0.975f;//敌人攻击回复时间
+        public const float aiAttackStartWaitTime = 0.24f;//敌人攻击起始时间
+        public const float aiAttackBackTime = 0.855f;//敌人攻击回复时间
 
     }
 

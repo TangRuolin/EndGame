@@ -13,7 +13,7 @@ namespace Game
         private void Awake()
         {
             instance = this;
-            attackTime = 0;
+            attackTime = Const.attackTimeUnit;
             Player.Instance.arrowModel = arrowModel;
             Player.Instance.arrowPos = arrowPos;
         }
@@ -73,7 +73,17 @@ namespace Game
         /// </summary>
         public void AttackBtnUp()
         {
-            if(attackTime > Const.attackTimeUnit)
+            float attackUnit;
+            if (Player.Instance.isQuick)
+            {
+                attackUnit = Const.attackTimeUnitQ;
+            }
+            else
+            {
+                attackUnit = Const.attackTimeUnit;
+            }
+
+            if(attackTime > attackUnit)
             {
                 if (Player.Instance.HasEnemy())
                 {
