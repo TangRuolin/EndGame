@@ -170,16 +170,18 @@
     <Compile Include="Assets\Game\Art\3dModel\Environment\Top Down Mobile\tools scripts\MovementScript.cs" />
     <Compile Include="Assets\Game\Art\3dModel\Environment\Top Down Mobile\tools scripts\TerrainRand.cs" />
     <Compile Include="Assets\Game\Art\3dModel\Environment\Top Down Mobile\tools scripts\desaturate\Image Based\DesaturateEffect.cs" />
-    <Compile Include="Assets\Game\Scripts\Const.cs" />
     <Compile Include="Assets\Game\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Game\Scripts\Logic\AI\AICtr.cs" />
-    <Compile Include="Assets\Game\Scripts\Logic\AI\Enemy.cs" />
     <Compile Include="Assets\Game\Scripts\Logic\Camera\MyCamera.cs" />
+    <Compile Include="Assets\Game\Scripts\Logic\Character\AI\AICtr.cs" />
+    <Compile Include="Assets\Game\Scripts\Logic\Character\AI\Enemy.cs" />
     <Compile Include="Assets\Game\Scripts\Logic\Character\Player\Player.cs" />
     <Compile Include="Assets\Game\Scripts\Logic\Character\Player\PlayerAction.cs" />
     <Compile Include="Assets\Game\Scripts\Logic\Character\Player\PlayerCtr.cs" />
+    <Compile Include="Assets\Game\Scripts\Manager\EnemyMgr.cs" />
     <Compile Include="Assets\Game\Scripts\Manager\Event\EventID.cs" />
     <Compile Include="Assets\Game\Scripts\Manager\Event\EventMgr.cs" />
+    <Compile Include="Assets\Game\Scripts\Manager\GameMgr.cs" />
+    <Compile Include="Assets\Game\Scripts\Manager\JsonMgr.cs" />
     <Compile Include="Assets\Game\Scripts\Manager\ResourceLoadMgr.cs" />
     <Compile Include="Assets\Game\Scripts\Manager\SceneMgr.cs" />
     <Compile Include="Assets\Game\Scripts\Manager\UIMgr.cs" />
@@ -194,7 +196,9 @@
     <Compile Include="Assets\Game\Scripts\UI\View\LogoPanel.cs" />
     <Compile Include="Assets\Game\Scripts\UI\View\MainPanel.cs" />
     <Compile Include="Assets\Game\Scripts\UI\View\SettingPanel.cs" />
+    <Compile Include="Assets\Game\Scripts\Utils\Const.cs" />
     <Compile Include="Assets\Game\Scripts\Utils\Utils.cs" />
+    <Compile Include="Assets\Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Demigiant\DOTween\DOTween.XML" />
@@ -278,6 +282,7 @@
     <None Include="Assets\Game\Art\3dModel\Environment\Top Down Mobile\tools scripts\desaturate\Image Based\DesaturateEffect.shader" />
     <None Include="Assets\Game\Art\3dModel\Monster\Monster3\Shader\ToonBasic.shader" />
     <None Include="Assets\Game\Shader\ProjectionNormalAdd.shader" />
+    <None Include="Assets\StreamingAssets\Json\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

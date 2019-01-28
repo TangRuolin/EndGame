@@ -12,8 +12,9 @@ namespace Game
         {
             DontDestroyOnLoad(this);
             this.gameObject.AddComponent<Utils>().Init();
+            GameMgr.Instance.Init();
         }
-       
+        
 
 
     }

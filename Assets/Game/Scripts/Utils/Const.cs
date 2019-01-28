@@ -12,6 +12,7 @@ namespace Game
         public const float logoBiaoyuTime = 3.5f; // logo标语的显示事件
         public const string LoadBGPath = "Texture/Load/"; //下载图片的路径
         public static System.Random random = new System.Random(); // 适用于大多数情况的随机数random
+        public static  string JsonPath = Application.streamingAssetsPath+"/Json/";//Json文件的下载路径
 
         public const int playerMoveSpe = 8;//玩家正常的移速
         public const int playerMoveSpeQ = 10;//玩家加快的移速
@@ -38,20 +39,6 @@ namespace Game
 
     }
 
-    /// <summary>
-    /// 怪物传递给主人公的信息格式
-    /// </summary>
-    public class MonsterMeg
-    {
-       public GameObject go;
-        public float distance;
-        public Vector3 pos;
-        public MonsterMeg(GameObject _go)
-        {
-            go = _go;
-           
-        }
-
-    }
+   
 }
 

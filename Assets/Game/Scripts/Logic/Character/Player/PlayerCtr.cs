@@ -30,6 +30,7 @@ namespace Game
         {
             attackTime += Time.deltaTime;
         }
+
         /// <summary>
         /// 虚拟摇杆移动时
         /// </summary>
@@ -73,6 +74,7 @@ namespace Game
         /// </summary>
         public void AttackBtnUp()
         {
+            Debug.Log("dfdfdf");
             float attackUnit;
             if (Player.Instance.isQuick)
             {

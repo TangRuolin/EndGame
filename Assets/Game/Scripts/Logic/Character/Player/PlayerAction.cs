@@ -130,6 +130,7 @@ namespace Game
         {
             anim.SetBool("Dead", false);
             Player.Instance.canMove = true;
+            GameMgr.Instance.Over();
         }
     }
 

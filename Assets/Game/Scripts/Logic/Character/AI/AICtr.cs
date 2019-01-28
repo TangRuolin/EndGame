@@ -223,7 +223,14 @@ namespace Game
             }
         }
 
-
+        public void Idel()
+        {
+            if(anim == null)
+            {
+                return;
+            }
+            anim.SetBool("Idel",true);
+        }
 
 
     }

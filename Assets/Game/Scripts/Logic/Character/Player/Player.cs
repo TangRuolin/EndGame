@@ -27,6 +27,7 @@ namespace Game
 
         private float blood;    //血量
         private float attackNum;//玩家的攻击伤害
+        private bool isDead;//玩家死亡
 
         //public int _attackNum { get; private set; }  //攻击次数，用于判断有没有触发强力攻击
         public float moveSpe { get; private set; }  //玩家移动速度
@@ -51,13 +52,14 @@ namespace Game
             moveSpe = 0;
             isQuick = false;
             canMove = true;
+            isDead = false;
             EventMgr.Instance.Add((int)EventID.PlayerEvent.moveSpeChange,SetIsQuick);
             monsterList = new List<MonsterMeg>();
             EventMgr.Instance.Add((int)EventID.PlayerEvent.addAttackMonster, AddMonster);
             EventMgr.Instance.Add((int)EventID.PlayerEvent.removeAttackMonster, RemoveMonster);
             EventMgr.Instance.Add((int)EventID.PlayerEvent.clearMonsterList, ClearMonster);
+            EventMgr.Instance.Add((int)EventID.PlayerEvent.damage, Damage);
             arrows = new List<GameObject>();
-            
         }
 
 
@@ -281,8 +283,27 @@ namespace Game
         /// <param name="meg"></param>
         private void Damage(object meg)
         {
+            if (isDead)
+            {
+                return;
+            }
             float damage = (float)meg;
-
+            if(damage >= blood)
+            {
+                blood = 0;
+                Dead();
+            }
+            else
+            {
+                blood -= damage;
+            }
+        }
+        /// <summary>
+        /// 主人公死亡
+        /// </summary>
+        private void Dead()
+        {
+            EventMgr.Instance.Trigger((int)EventID.AnimEvent.PlayerDead,true);
         }
 
     }
