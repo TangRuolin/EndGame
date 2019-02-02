@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: fc1d824fd01ab884c93b35cdab03571f
+timeCreated: 1548918275
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: HYFangLiJ
+  fontNames:
+  - HYFangLiJ
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -161,6 +161,7 @@
     <Compile Include="Assets\EasyTouch\Plugins\Editor\GUIEasyTouchMenu.cs" />
     <Compile Include="Assets\EasyTouch\Plugins\Editor\GUIEasytouchCallBack.cs" />
     <Compile Include="Assets\EasyTouch\Plugins\Editor\HTGUILayout.cs" />
+    <Compile Include="Assets\Editor\BuildAssetBundle.cs" />
     <Compile Include="Assets\Game\Art\3dModel\Environment\Toon_Level_Kit\Resources\Scripts\Editor\ButterflyInspector.cs" />
     <Compile Include="Assets\Game\Art\3dModel\Environment\Toon_Level_Kit\Resources\Scripts\Editor\MaxAtlasSize.cs" />
     <Compile Include="Assets\Game\Art\3dModel\Environment\Top Down Mobile\tools scripts\Editor\TerrainRandEditor.cs" />

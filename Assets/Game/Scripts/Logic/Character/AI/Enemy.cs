@@ -15,7 +15,7 @@ namespace Game
             go = GameObject.Instantiate(obj);
             go.transform.SetParent(parent);
             aiCtr = go.GetComponent<AICtr>();
-           // aiCtr.Init();
+            aiCtr.Init();
         }
 
         public void SetData(EnemyData data)

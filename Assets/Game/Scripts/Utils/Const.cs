@@ -13,6 +13,7 @@ namespace Game
         public const string LoadBGPath = "Texture/Load/"; //下载图片的路径
         public static System.Random random = new System.Random(); // 适用于大多数情况的随机数random
         public static  string JsonPath = Application.streamingAssetsPath+"/Json/";//Json文件的下载路径
+        public const float mainPlayerTime = 10;
 
         public const int playerMoveSpe = 8;//玩家正常的移速
         public const int playerMoveSpeQ = 10;//玩家加快的移速
@@ -36,6 +37,7 @@ namespace Game
 
         public const float aiAttackStartWaitTime = 0.24f;//敌人攻击起始时间
         public const float aiAttackBackTime = 0.855f;//敌人攻击回复时间
+
 
     }
 

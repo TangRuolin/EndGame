@@ -14,7 +14,7 @@ namespace Game
             EventMgr.Instance.Add((int)EventID.UtilsEvent.StartCoroutine, CoroutineStart);
             EventMgr.Instance.Add((int)EventID.UtilsEvent.StopCoroutine, CoroutineStop);
             EventMgr.Instance.Add((int)EventID.UtilsEvent.SynLoad, SynLoad);
-            EventMgr.Instance.Add((int)EventID.UtilsEvent.AsynLoad, AsynLoad);
+           // EventMgr.Instance.Add((int)EventID.UtilsEvent.AsynLoad, AsynLoad);
         }
         ////协程工具类(启动和关闭)
         #region
@@ -58,27 +58,29 @@ namespace Game
             string name = (string)meg;
             UnityEngine.SceneManagement.SceneManager.LoadScene(name);
         }
-        /// <summary>
-        /// 异步加载场景
-        /// </summary>
-        public AsyncOperation async;
-        public void AsynLoad(object meg)
-        {
-            if (meg == null) return;
-            string name = (string)meg;
-            object asynMeg = AsynLoading(name);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Load");
-            StartCoroutine(AsynLoading(name));
-        }
-        IEnumerator AsynLoading(string name)
-        {
-            async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(name);
-            async.allowSceneActivation = false;
-            object loadMeg = async;
-            AsyncOperation aysss = (AsyncOperation)loadMeg;
-            // EventMgr.Instance.Trigger((int)EventID.UIEvent.LoadPanel, loadMeg);
-            yield return null;
-        }
+
+
+        ///// <summary>
+        ///// 异步加载场景
+        ///// </summary>
+        //public AsyncOperation async;
+        //public void AsynLoad(object meg)
+        //{
+        //    if (meg == null) return;
+        //    string name = (string)meg;
+        //    object asynMeg = AsynLoading(name);
+        //    UnityEngine.SceneManagement.SceneManager.LoadScene("Load");
+        //    StartCoroutine(AsynLoading(name));
+        //}
+        //IEnumerator AsynLoading(string name)
+        //{
+        //    async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(name);
+        //    async.allowSceneActivation = false;
+        //    object loadMeg = async;
+        //    AsyncOperation aysss = (AsyncOperation)loadMeg;
+        //    // EventMgr.Instance.Trigger((int)EventID.UIEvent.LoadPanel, loadMeg);
+        //    yield return null;
+        //}
         #endregion
     }
 }

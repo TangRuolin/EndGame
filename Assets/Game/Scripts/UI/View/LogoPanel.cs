@@ -15,7 +15,7 @@ namespace Game
         {
             text = GameObject.Find("Biaoyu");
             Show();
-            LogoCtr.Instance.Init();
+            StartCoroutine(LoadScene());
         }
 
         /// <summary>
@@ -25,7 +25,13 @@ namespace Game
         {
             text.transform.GetComponent<Text>().DOFade(1, 3);
         }
-
+        IEnumerator LoadScene()
+        {
+            yield return new WaitForSeconds(Const.logoBiaoyuTime);
+            string scene = "Main";
+            LoadCtr.Instance.sceneName = scene;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Load");
+        }
     }
 }
 

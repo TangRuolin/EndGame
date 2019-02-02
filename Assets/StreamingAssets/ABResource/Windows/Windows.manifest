@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 3289044099
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: content.ab
+      Dependencies: {}
+    Info_1:
+      Name: loadbg.ab
+      Dependencies: {}

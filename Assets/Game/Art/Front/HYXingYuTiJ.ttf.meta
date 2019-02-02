@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d27a23d94bb4b154a8b21671a02f3680
+timeCreated: 1548902679
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: HYXingYuTiJ
+  fontNames:
+  - HYXingYuTiJ
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

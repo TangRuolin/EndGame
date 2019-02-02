@@ -21,7 +21,7 @@ namespace Game
             StartCoroutine = 11,
             StopCoroutine = 12,
             SynLoad = 13,
-            AsynLoad = 14,
+            //AsynLoad = 14,
         }
 
         /// <summary>

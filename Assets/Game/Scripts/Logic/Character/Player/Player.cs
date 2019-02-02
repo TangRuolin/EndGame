@@ -25,6 +25,7 @@ namespace Game
             }
         }
 
+
         private float blood;    //血量
         private float attackNum;//玩家的攻击伤害
         private bool isDead;//玩家死亡
@@ -48,20 +49,39 @@ namespace Game
         /// </summary>
         public void Init()
         {
+            monsterList = new List<MonsterMeg>();
+            arrows = new List<GameObject>();
+            EventMgr.Instance.Add((int)EventID.PlayerEvent.moveSpeChange,SetIsQuick);
+            EventMgr.Instance.Add((int)EventID.PlayerEvent.addAttackMonster, AddMonster);
+            EventMgr.Instance.Add((int)EventID.PlayerEvent.removeAttackMonster, RemoveMonster);
+            EventMgr.Instance.Add((int)EventID.PlayerEvent.clearMonsterList, ClearMonster);
+            EventMgr.Instance.Add((int)EventID.PlayerEvent.damage, Damage);
+           // PlayerInit();
+        }
+        /// <summary>
+        /// 玩家数据初始化
+        /// </summary>
+        public void PlayerInit()
+        {
+            arrowModel = ResourceLoadMgr.Instance.arrowModel;
             attackNum = Const.playerAttackNum;
             moveSpe = 0;
             isQuick = false;
             canMove = true;
             isDead = false;
-            EventMgr.Instance.Add((int)EventID.PlayerEvent.moveSpeChange,SetIsQuick);
-            monsterList = new List<MonsterMeg>();
-            EventMgr.Instance.Add((int)EventID.PlayerEvent.addAttackMonster, AddMonster);
-            EventMgr.Instance.Add((int)EventID.PlayerEvent.removeAttackMonster, RemoveMonster);
-            EventMgr.Instance.Add((int)EventID.PlayerEvent.clearMonsterList, ClearMonster);
-            EventMgr.Instance.Add((int)EventID.PlayerEvent.damage, Damage);
-            arrows = new List<GameObject>();
+            monsterList.Clear();
+            arrows.Clear();
         }
-
+        /// <summary>
+        /// 游戏结束后玩家消除
+        /// </summary>
+        public void PlayerDestroy()
+        {
+            //if (selfGo != null)
+            //    GameObject.Destroy(selfGo);
+        }
+        
+      
 
 
         /// <summary>
@@ -144,6 +164,8 @@ namespace Game
             bool isQ = (bool)meg;
             isQuick = isQ;
         }
+
+
         //角色动画控制
         #region
         /// <summary>

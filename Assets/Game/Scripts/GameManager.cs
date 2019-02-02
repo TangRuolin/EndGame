@@ -6,13 +6,14 @@ namespace Game
 {
     public class GameManager : MonoBehaviour
     {
-      
-        public Sprite[] loadBG { get; private set; }
         private void Awake()
         {
             DontDestroyOnLoad(this);
             this.gameObject.AddComponent<Utils>().Init();
-            GameMgr.Instance.Init();
+            Player.Instance.Init();
+           // GameMgr.Instance.Init();
+            ResourceLoadMgr.Instance.Init();
+            JsonMgr.Instance.Init();
         }
         
 

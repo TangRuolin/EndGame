@@ -9,10 +9,13 @@ namespace Game
 {
     public class AICtr : MonoBehaviour
     {
-        public int id;
+        [HideInInspector]
         public float blood;    //血量
+        [HideInInspector]
         public float moveSpe;   //移动速度
+        [HideInInspector]
         public float attack;    //攻击伤害
+        [HideInInspector]
         public float attackAnim; //攻击动画
        
         private NavMeshAgent agent; //NavMeshAgent组件
@@ -29,17 +32,16 @@ namespace Game
         private bool canMove;//是否处于移动状态
 
         // Use this for initialization
-        void Start()
+        public void Init()
         {
             agent = this.GetComponent<NavMeshAgent>();
             anim = this.GetComponent<Animator>();
-            target = GameObject.Find("Player");
+            target = GameObject.Find("Player") ;
             isTrackTarget = false;
             self = new MonsterMeg(this.gameObject);
             moveSpe = 2;
             attackAnim = 1;
             canMove = true;
-
         }
         // Update is called once per frame
         void Update()
@@ -82,6 +84,9 @@ namespace Game
                 object meg = self;
                 EventMgr.Instance.Trigger((int)EventID.PlayerEvent.removeAttackMonster, meg);
             }
+
+            
+
         }
         /// <summary>
         /// AI攻击方式

@@ -22,12 +22,13 @@ namespace Game
 
        public void Init()
        {
-            Player.Instance.Init();
+            Player.Instance.PlayerInit();
+            EnemyMgr.Instance.Init();
         }
 
        public void Start()
        {
-
+            
        }
 
        public void Pause()
@@ -37,7 +38,7 @@ namespace Game
 
        public void Over()
        {
-
+            Player.Instance.PlayerDestroy();
        }
     }
 }
