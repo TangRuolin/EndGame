@@ -17,7 +17,10 @@ namespace Game
         public float attack;    //攻击伤害
         [HideInInspector]
         public float attackAnim; //攻击动画
-       
+        //[HideInInspector]
+        //public Vector2 screenPos;//在屏幕上的位置，用于显示血条
+        [HideInInspector]
+        public int score;
         private NavMeshAgent agent; //NavMeshAgent组件
         private GameObject target;//攻击目标
         private bool isTrackTarget;//是否捕捉到攻击目标
@@ -31,40 +34,63 @@ namespace Game
         private MonsterMeg self;//构建一个自身的信息，用于传递给主人公
         private bool canMove;//是否处于移动状态
 
+        public float fullBlood;
+        [HideInInspector]
+        public bool isBlood;
         // Use this for initialization
-        public void Init()
+        public void Init(bool isTrack)
         {
             agent = this.GetComponent<NavMeshAgent>();
             anim = this.GetComponent<Animator>();
             target = GameObject.Find("Player") ;
-            isTrackTarget = false;
+            isTrackTarget = isTrack;
             self = new MonsterMeg(this.gameObject);
-            moveSpe = 2;
-            attackAnim = 1;
             canMove = true;
+            fullBlood = blood;
+            isBlood = false;
+            StartMove();
+            //if (move != null)
+            //{
+            //    StopCoroutine(move);
+            //}
+            //move = SetMove();
+            //StartCoroutine(move);
         }
         // Update is called once per frame
         void Update()
         {
+            
+            ///血条跟随人物移动的写法，（有bug，换成另外一种显示方式）
+            #region
+            //screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
+            //if (!isBlood)
+            //{
+            //    if (screenPos.x > 0 + Const.bloodOffct && screenPos.x < Screen.width - Const.bloodOffct && screenPos.y > 0 + Const.bloodOffct && screenPos.y < Screen.height - Const.bloodOffct)
+            //    {
+            //        EnemyMgr.Instance.CreateHp(fullBlood, blood, this.transform);
+            //        isBlood = true;
+            //    }
+            //}
+            #endregion
             distance = Vector3.Distance(transform.position, target.transform.position);
             if (isTrackTarget)
             {
-                if(move == null)
-                {
+                //if (move == null)
+                //{
                     move = SetMove();
                     StartCoroutine(move);
-                }
+                //}
                 agent.SetDestination(target.transform.position);
             }
-            if(distance < Const.aiViewDis)
-            {
-                Vector3 dir = target.transform.position - transform.position;
-                float angle = Vector3.Angle(dir,transform.forward);
-                if(angle <= Const.aiViewAngle / 2){
-                    isTrackTarget = true;
-                }
-            }
-            if(isTrackTarget && distance <= Const.aiAttackDis)
+            //if(distance < Const.aiViewDis)
+            //{
+            //    Vector3 dir = target.transform.position - transform.position;
+            //    float angle = Vector3.Angle(dir,transform.forward);
+            //    if(angle <= Const.aiViewAngle / 2){
+            //        isTrackTarget = true;
+            //    }
+            //}
+            if(distance <= Const.aiAttackDis)
             {
                 Attack(attackAnim);
             }
@@ -136,7 +162,6 @@ namespace Game
                 StopCoroutine(attackJudge);
                 attackJudge = null;
             }
-               
         }
 
         /// <summary>
@@ -150,11 +175,15 @@ namespace Game
             {
                 blood = 0;
                 Dead();
-                return;
             }
-            if (anim == null) return;
-            anim.SetBool("Damage", true);
-            blood -= damage;
+            else
+            {
+                if (anim == null) return;
+                anim.SetBool("Damage", true);
+                blood -= damage;
+            }
+            object meg = this.GetComponent<AICtr>();
+            EventMgr.Instance.Trigger((int)EventID.UIEvent.BloodPanel, meg);
         }
 
         /// <summary>
@@ -164,6 +193,8 @@ namespace Game
         {
             if (anim == null) return;
             anim.SetBool("Dead",true);
+            StopMove();
+            ScoreMgr.Instance.AddScore(score);
             object meg = self;
             EventMgr.Instance.Trigger((int)EventID.PlayerEvent.removeAttackMonster, meg);
         }
@@ -200,13 +231,17 @@ namespace Game
         {
             agent.speed = moveSpe;   
         }
+        [HideInInspector]
+        public float aiAttackStartWaitTime;
+        [HideInInspector]
+        public float aiAttackBackTime;
 
         ///判断攻击是否成功
         IEnumerator AttackJudge()
         {
             while (true)
             {
-                yield return new WaitForSeconds(Const.aiAttackStartWaitTime);
+                yield return new WaitForSeconds(aiAttackStartWaitTime);
                 if(Vector3.Distance(transform.position,target.transform.position) <= Const.aiAttackDis)
                 {
                     Vector3 dir = target.transform.position - transform.position;
@@ -224,7 +259,7 @@ namespace Game
                 {
                     Debug.Log("敌人攻击距离错误");
                 }
-                yield return new WaitForSeconds(Const.aiAttackBackTime);
+                yield return new WaitForSeconds(aiAttackBackTime);
             }
         }
 

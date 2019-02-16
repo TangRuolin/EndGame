@@ -33,6 +33,11 @@ namespace Game
         {
             public EnemyData[] monsterType;
             public string[] tick;
+            public Vector3[] startPosition;
+            public Vector3[] eneginePos;
+            public int[] skillTime;
+            public int[] skillCD;
+            public int[] skillEnegineNum;
         }
 
         /// <summary>

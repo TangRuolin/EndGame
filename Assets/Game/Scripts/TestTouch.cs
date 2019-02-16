@@ -16,10 +16,7 @@ namespace Game
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                PlayerCtr.instance.AttackBtnUp();
-            }
+            
         }
     }
 

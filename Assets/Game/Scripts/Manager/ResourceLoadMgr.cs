@@ -25,8 +25,11 @@ namespace Game
         public GameObject arrowModel { get; private set; }
 
         public Transform EnemyParent { get; private set; }
-        public Transform BloodPanel { get; private set; }
-        public GameObject BloodItem { get; private set; }
+        //public Transform BloodPanel { get; private set; }
+        //public GameObject BloodItem { get; private set; }
+
+        public Transform EnegineParent { get; private set; }
+        public GameObject Enegine { get; private set; }
 
         public Sprite[] loadBG { get; private set; }
         private IEnumerator loadResourceContent;
@@ -83,9 +86,11 @@ namespace Game
              monsterModel = ab.LoadAsset<GameObject>("Monster3");
              arrowModel = ab.LoadAsset<GameObject>("arrow");
             EnemyParent = ab.LoadAsset<GameObject>("EnemyParent").transform;
-            BloodPanel = ab.LoadAsset<GameObject>("BloodPanel").transform;
-            BloodItem = ab.LoadAsset<GameObject>("BloodItem");
-           // player = ab.LoadAsset<GameObject>("Player");
+            //BloodPanel = ab.LoadAsset<GameObject>("BloodPanel").transform;
+            //BloodItem = ab.LoadAsset<GameObject>("BloodItem");
+            // player = ab.LoadAsset<GameObject>("Player");
+            EnegineParent = ab.LoadAsset<GameObject>("EnegineParent").transform;
+            Enegine = ab.LoadAsset<GameObject>("Enegine");
             ab.Unload(false);
             EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StopCoroutine, loadResourceContent);
         }

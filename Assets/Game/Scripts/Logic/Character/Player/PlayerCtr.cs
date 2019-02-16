@@ -8,17 +8,25 @@ namespace Game
     {
         public GameObject AttackRange;//攻击范围圈
         public static PlayerCtr instance;//单例
-        private GameObject arrowModel;//箭矢的模型
         public Transform arrowPos;//箭矢的位置
                                   // public float offset = 0;
-
+        public GameObject ShanxianRange;
         private void Awake()
         {
             instance = this;
-            attackTime = Const.attackTimeUnit;
             Player.Instance.arrowPos = arrowPos;
-            arrowModel = ResourceLoadMgr.Instance.arrowModel;
+            Player.Instance.go = this.gameObject;
         }
+
+        private void SetAttackTime(object meg)
+        {
+            bool isQuick = (bool)meg;
+
+        }
+
+
+
+
         /// <summary>
         /// 赋予虚拟摇杆移动事件
         /// </summary>
@@ -30,7 +38,6 @@ namespace Game
 
         private void Update()
         { 
-            attackTime += Time.deltaTime;
             
         }
 
@@ -54,10 +61,11 @@ namespace Game
                     Vector3 direct = new Vector3(joyPosX , 0, joyPosY );
                     this.transform.rotation = Quaternion.LookRotation(direct);
                     this.transform.GetComponent<CharacterController>().Move(transform.rotation * new Vector3(0, 0, Time.deltaTime * Player.Instance.moveSpe));
+                    Player.Instance.arrowModel.transform.rotation = transform.rotation;
                     Player.Instance.Move();
-                    arrowModel.transform.rotation = transform.rotation;
                 }
             }
+            
         }
         /// <summary>
         /// 虚拟摇杆结束时
@@ -71,43 +79,7 @@ namespace Game
             }
         }
 
-        float attackTime;//攻击间隔时间检测
-        /// <summary>
-        /// 攻击按钮事件
-        /// </summary>
-        public void AttackBtnUp()
-        {
-            float attackUnit;
-            if (Player.Instance.isQuick)
-            {
-                attackUnit = Const.attackTimeUnitQ;
-            }
-            else
-            {
-                attackUnit = Const.attackTimeUnit;
-            }
-
-            if(attackTime > attackUnit)
-            {
-                if (Player.Instance.HasEnemy())
-                {
-                    MonsterMeg attackMos = Player.Instance.GetAttackMonster();
-                    this.transform.LookAt(attackMos.pos);
-                    arrowModel.transform.rotation = transform.rotation;
-                }
-                Player.Instance.Attack();
-                attackTime = 0;
-            }
-            AttackRange.SetActive(false);
-        }
-        public void AttackBtnDown()
-        {
-            AttackRange.SetActive(true);
-        }
-        public void AttackBtnExit()
-        {
-            AttackRange.SetActive(false);
-        }
+        
       
     }
 }

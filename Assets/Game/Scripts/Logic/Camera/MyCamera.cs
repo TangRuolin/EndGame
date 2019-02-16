@@ -20,8 +20,6 @@ namespace Game
         {
             _player = GameObject.Find("Player");
             _oldPos = _player.transform.position;
-            
-            
         }
 
         // Update is called once per frame
@@ -34,6 +32,7 @@ namespace Game
         }
         float oldRotatePos;
         bool isRotate = false;
+        Touch rotatTouch;
         void CameraRotate()
         {
 #if UNITY_EDITOR
@@ -65,8 +64,49 @@ namespace Game
                 transform.position = oldPos;
             }
 
-#elif UNITY_ANDROID || UNITY_IPHONE
 
+
+#elif UNITY_ANDROID || UNITY_IPHONE
+            if (Input.touchCount > 0)
+            {
+                if (!isRotate)
+                {
+                    for (int i = 0; i < Input.touchCount; i++)
+                    {
+                        if (!isHitTouch(Input.touches[i].position))
+                        {
+                            oldPos = transform.position;
+                            rotatTouch = Input.touches[i];
+                            oldRotatePos = rotatTouch.position.x;
+                            oldRo = transform.rotation;
+                            isRotate = true;
+                            break;
+                        }
+                    }
+                }
+                if (isRotate)
+                {
+                    if (rotatTouch.phase == TouchPhase.Moved)
+                    {
+                        float newRotatePos = rotatTouch.position.x;
+                        float offset = newRotatePos - oldRotatePos;
+                        oldRotatePos = newRotatePos;
+                        if (offset != 0)
+                        {
+                            transform.RotateAround(_player.transform.position, _player.transform.up, offset);
+                        }
+                    }
+                    if (rotatTouch.phase == TouchPhase.Ended)
+                    {
+                        isRotate = false;
+                        transform.rotation = oldRo;
+                        transform.position = oldPos;
+
+                    }
+                
+                }
+
+            }
 #endif
         }
         bool isHitTouch(Vector2 pos)

@@ -20,6 +20,7 @@ namespace Game
             this.transform.Find("renwu").GetComponent<Image>().sprite = LoadCtr.Instance.GetBgImage();
             this.transform.Find("renwu").GetComponent<Image>().SetNativeSize();
             processBar = this.transform.Find("processbar").GetComponent<Image>();
+            processBar.fillAmount = 0;
            this.transform.Find("tishiyu").GetComponent<Text>().text = LoadCtr.Instance.GetTick();
             if(ienum != null)
             {

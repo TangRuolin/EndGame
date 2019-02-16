@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG;
-using DG.Tweening;
+//using DG;
+//using DG.Tweening;
 
 namespace Game
 {
@@ -24,15 +24,16 @@ namespace Game
                 return _instance;
             }
         }
-
-
-        private float blood;    //血量
+        public GameObject go;
+        private float enegine; // 蓝
+        public float blood;    //血量
         private float attackNum;//玩家的攻击伤害
         private bool isDead;//玩家死亡
 
         //public int _attackNum { get; private set; }  //攻击次数，用于判断有没有触发强力攻击
         public float moveSpe { get; private set; }  //玩家移动速度
-        public bool isQuick;    //玩家是否快速移动
+        public bool isMoveQuick;    //玩家是否快速移动
+        public bool isAttackQuick;
         public bool canMove { get; set; }
         private List<GameObject> arrows;
         public GameObject arrowModel;
@@ -51,7 +52,6 @@ namespace Game
         {
             monsterList = new List<MonsterMeg>();
             arrows = new List<GameObject>();
-            EventMgr.Instance.Add((int)EventID.PlayerEvent.moveSpeChange,SetIsQuick);
             EventMgr.Instance.Add((int)EventID.PlayerEvent.addAttackMonster, AddMonster);
             EventMgr.Instance.Add((int)EventID.PlayerEvent.removeAttackMonster, RemoveMonster);
             EventMgr.Instance.Add((int)EventID.PlayerEvent.clearMonsterList, ClearMonster);
@@ -66,7 +66,10 @@ namespace Game
             arrowModel = ResourceLoadMgr.Instance.arrowModel;
             attackNum = Const.playerAttackNum;
             moveSpe = 0;
-            isQuick = false;
+            blood = Const.playerBloodLimit;
+            enegine = 0;
+            isMoveQuick = false;
+            isAttackQuick = false;
             canMove = true;
             isDead = false;
             monsterList.Clear();
@@ -75,14 +78,50 @@ namespace Game
         /// <summary>
         /// 游戏结束后玩家消除
         /// </summary>
-        public void PlayerDestroy()
-        {
-            //if (selfGo != null)
-            //    GameObject.Destroy(selfGo);
-        }
+        //public void PlayerDestroy()
+        //{
+        //    //if (selfGo != null)
+        //    //    GameObject.Destroy(selfGo);
+        //}
         
-      
-
+       
+        ///<summary>
+        ///增加能量
+        ///</summary>
+        public void AddEngine(int num)
+        {
+            enegine += num;
+            if(enegine > Const.playerEnegineLimit)
+            {
+                enegine = Const.playerEnegineLimit;
+            }
+            EventMgr.Instance.Trigger((int)EventID.UIEvent.CtrPanel,(object)enegine);
+        }
+        /// <summary>
+        /// 消耗能量
+        /// </summary>
+        /// <param name="num"></param>
+        public void UseEngine(int num)
+        {
+            if (enegine <= 0)
+            {
+                return;
+            }
+            enegine -= num;
+            if(enegine < 0)
+            {
+                enegine = 0;
+            }
+            EventMgr.Instance.Trigger((int)EventID.UIEvent.CtrPanel, (object)enegine);
+        }
+        /// <summary>
+        /// 获取玩家现有的能量
+        /// </summary>
+        /// <returns></returns>
+        public float GetEngine()
+        {
+            return enegine;
+        }
 
         /// <summary>
         /// 增加可攻击敌人
@@ -91,6 +130,13 @@ namespace Game
         private void AddMonster(object meg)
         {
             MonsterMeg go = (MonsterMeg)meg;
+            foreach(var i in monsterList)
+            {
+                if(i == go)
+                {
+                    return;
+                }
+            }
             monsterList.Add(go); 
         }
         /// <summary>
@@ -155,15 +201,7 @@ namespace Game
             return attackMonster;
         }
 
-        /// <summary>
-        /// 玩家移速是否更改
-        /// </summary>
-        /// <param name="meg"></param>
-        private void SetIsQuick(object meg)
-        {
-            bool isQ = (bool)meg;
-            isQuick = isQ;
-        }
+        
 
 
         //角色动画控制
@@ -173,9 +211,16 @@ namespace Game
         /// </summary>
         public void Attack()
         {
-            //_attackNum++;
-            object meg = 1;
-            EventMgr.Instance.Trigger((int)EventID.AnimEvent.PlayerAttack,meg);
+            if (isAttackQuick)
+            {
+                object meg = 4;
+                EventMgr.Instance.Trigger((int)EventID.AnimEvent.PlayerAttack, meg);
+            }
+            else
+            {
+                object meg = 1;
+                EventMgr.Instance.Trigger((int)EventID.AnimEvent.PlayerAttack, meg);
+            }
             //if (_attackNum == 3)
             //{
             //    CreateArrow(3);
@@ -186,28 +231,39 @@ namespace Game
             
         }
         /// <summary>
+        /// 近战攻击
+        /// </summary>
+        public void AttackFirst()
+        {
+            EventMgr.Instance.Trigger((int)EventID.AnimEvent.PlayerAttackFirst,(object)true);
+        }
+
+        /// <summary>
         /// 创建箭矢
         /// </summary>
         private void CreateArrow()
         {
-            GameObject arrow;
-            if (arrows.Count == 0)
+            GameObject arrow = null;
+          for(int i = 0; i < arrows.Count; i++)
+            {
+                if (!arrows[i].activeSelf)
+                {
+                    arrow = arrows[i];
+                }
+            }
+               
+           if(arrow == null)
             {
                 arrow = GameObject.Instantiate(arrowModel);
-               // arrow.transform.SetParent(arrowPos);
                 arrows.Add(arrow);
             }
-            else
-            {
-                arrow = arrows[0];
-            } 
             arrow.transform.position = arrowPos.transform.position;
             arrow.transform.rotation = arrowModel.transform.rotation;
-            if(arrowMove != null)
-            {
-                object message = arrowMove;
-                EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StopCoroutine, message);
-            }
+            //if(arrowMove != null)
+            //{
+            //    object message = arrowMove;
+            //    EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StopCoroutine, message);
+            //}
             arrowMove = ArrowMove(arrow);
             object meg = arrowMove;
             EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StartCoroutine, meg);
@@ -263,7 +319,7 @@ namespace Game
         public void Move()
         {
             float num;
-            if (isQuick)
+            if (isMoveQuick)
             {
                 moveSpe = Const.playerMoveSpeQ;
                 num = 1f;
@@ -326,6 +382,26 @@ namespace Game
         private void Dead()
         {
             EventMgr.Instance.Trigger((int)EventID.AnimEvent.PlayerDead,true);
+        }
+
+        public bool isFlash = true;
+        /// <summary>
+        /// 滚动技能
+        /// </summary>
+        public void Flash(Quaternion rotate)
+        {
+            EventMgr.Instance.Trigger((int)EventID.AnimEvent.PlayerSkill,(object)3);
+            go.transform.rotation = rotate;
+            EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StartCoroutine,(object)FlashMove());
+        }
+        IEnumerator FlashMove()
+        {
+            for(int i = 0; i < 30; i++)
+            {
+                go.transform.GetComponent<CharacterController>().Move(go.transform.rotation * new Vector3(0, 0, Time.deltaTime*35));
+                yield return new WaitForSeconds(0.01f);
+
+            }
         }
 
     }

@@ -31,6 +31,8 @@ namespace Game
         {
             LogoPanel = 101,
             LoadPanel = 102,
+            BloodPanel = 103,
+            CtrPanel = 104,
         }
 
         /// <summary>
@@ -43,6 +45,7 @@ namespace Game
             PlayerJump = 203,  //尚未用到（Jump动画制作比较难）
             PlayerSkill = 204,
             PlayerAttack = 205,
+            PlayerAttackFirst = 206, //后期增加功能可用
         }
 
         /// <summary>
@@ -55,6 +58,7 @@ namespace Game
             removeAttackMonster = 303,
             clearMonsterList = 304,
             damage = 305,
+            attackSpdChange = 306,
         }
 
         /// <summary>
@@ -66,6 +70,18 @@ namespace Game
             removeEnemy = 402,
             clearEnemyList = 403,
             damage = 404,
+        }
+        /// <summary>
+        /// 音频事件ID，区间为（500,600）
+        /// </summary>
+        public enum AudioEvent
+        {
+            MainBGM = 501,
+            GameBGM = 502,
+            MainPlayerSound = 503,
+            GamePlayerSound = 504,
+            AISound = 505,
+            GameSound = 506,
         }
     }
 }

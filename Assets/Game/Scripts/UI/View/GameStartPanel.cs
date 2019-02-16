@@ -25,7 +25,7 @@ namespace Game
 
         private void Jieji()
         {
-            GameMgr.Instance.Init();
+           // GameMgr.Instance.Init();
             LoadScene();
         }
 

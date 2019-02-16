@@ -11,9 +11,9 @@ namespace Game
             DontDestroyOnLoad(this);
             this.gameObject.AddComponent<Utils>().Init();
             Player.Instance.Init();
-           // GameMgr.Instance.Init();
             ResourceLoadMgr.Instance.Init();
             JsonMgr.Instance.Init();
+            ScoreMgr.Instance.Init();
         }
         
 

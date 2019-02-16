@@ -31,7 +31,11 @@ public class AudioMgr {
     {
         return musicNum;
     }
-
+    public void ChangeMusicNum(float num)
+    {
+        musicNum = num;
+        Camera.main.GetComponent<AudioSource>().volume = musicNum;
+    }
     public void SetMusicNum(float num)
     {
         musicNum = num;

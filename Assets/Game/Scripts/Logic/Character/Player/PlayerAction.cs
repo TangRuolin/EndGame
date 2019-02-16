@@ -19,7 +19,7 @@ namespace Game
             EventMgr.Instance.Add((int)EventID.AnimEvent.PlayerDead, Dead);
             EventMgr.Instance.Add((int)EventID.AnimEvent.PlayerSkill, SetSkill);
             EventMgr.Instance.Add((int)EventID.AnimEvent.PlayerAttack, SetAttack);
-          
+            EventMgr.Instance.Add((int)EventID.AnimEvent.PlayerAttackFirst,SetAttackFirst);
         }
 
 
@@ -91,7 +91,6 @@ namespace Game
             }
             Player.Instance.canMove = false;
             anim.SetInteger("Skill", (int)skill);
-            
         }
         /// <summary>
         /// 角色攻击（普攻的第三次是强力攻击）
@@ -105,6 +104,16 @@ namespace Game
             }
             Player.Instance.canMove = false;
             anim.SetInteger("Attack", (int)attack);
+        }
+        private void SetAttackFirst(object attack)
+        {
+            if (anim == null) return;
+            Player.Instance.canMove = false;
+            anim.SetBool("AttackFirst",true);
+        }
+        private void SetAttackMoveSpe()
+        {
+           
         }
 
         /// <summary>
@@ -132,6 +141,15 @@ namespace Game
             Player.Instance.canMove = true;
             GameMgr.Instance.Over();
         }
+        /// <summary>
+        /// 近战结束后回复
+        /// </summary>
+        public void AttackFirst()
+        {
+            anim.SetBool("AttackFirst",false);
+            Player.Instance.canMove = true;
+        }
+
     }
 
 }

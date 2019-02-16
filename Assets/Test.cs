@@ -16,14 +16,6 @@ public class Test : MonoBehaviour {
     bool isCopy = true;
 	// Update is called once per frame
 	void Update () {
-        if (isCopy)
-        {
-            if(ResourceLoadMgr.Instance.monsterModel != null)
-            {
-                Enemy enemy = new Enemy(ResourceLoadMgr.Instance.monsterModel,text.transform);
-                enemy.SetData(ene[0]);
-                isCopy = false;
-            }
-        }
+        
 	}
 }
