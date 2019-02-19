@@ -363,7 +363,6 @@ namespace Game
                 return;
             }
             float damage = (float)meg;
-            Debug.Log("damage:"+damage);
             if(damage >= blood)
             {
                 blood = 0;
