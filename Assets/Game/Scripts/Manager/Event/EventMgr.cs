@@ -21,18 +21,17 @@ namespace Game
             }
         }
         //事件字典
-        private Dictionary<int, List<System.Action<object>>> EventMap = new Dictionary<int, List<System.Action<object>>>();
+        private Dictionary<int,System.Action<object>> EventMap = new Dictionary<int, System.Action<object>>();
         //添加事件
         public void Add(int key, System.Action<object> fun)
         {
             if (EventMap.ContainsKey(key))
             {
-                EventMap[key].Add(fun);
-                return;
+                EventMap.Remove(key);
             }
-            List<System.Action<object>> list = new List<System.Action<object>>();
-            list.Add(fun);
-            EventMap.Add(key, list);
+            //List<System.Action<object>> list = new List<System.Action<object>>();
+            //list.Add(fun);
+            EventMap.Add(key, fun);
         }
         //删除事件
         public void Remove(int key, System.Action<object> fun)
@@ -41,26 +40,33 @@ namespace Game
             {
                 return;
             }
-            List<System.Action<object>> list = EventMap[key];
-            list.Remove(fun);
-            if (list.Count == 0)
-            {
-                EventMap.Remove(key);
-            }
+            //List<System.Action<object>> list = EventMap[key];
+            //list.Remove(fun);
+            //if (list.Count == 0)
+            //{
+            //    EventMap.Remove(key);
+            //}
+            EventMap.Remove(key);
         }
         //触发事件
         public void Trigger(int key, object obj)
         {
             if (EventMap.ContainsKey(key))
             {
-                List<System.Action<object>> list = EventMap[key];
-                foreach (var l in list)
-                {
-                    l(obj);
-                }
+                //List<System.Action<object>> list = EventMap[key];
+                //foreach (var l in list)
+                //{
+                //    l(obj);
+                //}
+
+                EventMap[key](obj);
             }
         }
-
+        //public void Clear()
+        //{
+        //    EventMap.Clear();
+        //    GameManager.instance.UtilInit();
+        //}
     }
 }
 

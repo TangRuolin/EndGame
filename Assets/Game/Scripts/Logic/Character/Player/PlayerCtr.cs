@@ -32,14 +32,12 @@ namespace Game
         /// </summary>
         void OnEnable()
         {
+            EventMgr.Instance.Add((int)EventID.PlayerEvent.MoveJoystrick, Remove);
             EasyJoystick.On_JoystickMove += JoystickMove;
             EasyJoystick.On_JoystickMoveEnd += JoystickMoveEnd;
         }
 
-        private void Update()
-        { 
-            
-        }
+       
 
         /// <summary>
         /// 虚拟摇杆移动时
@@ -79,8 +77,13 @@ namespace Game
             }
         }
 
-        
-      
+        private void Remove(object meg)
+        {
+            EasyJoystick.On_JoystickMove -= JoystickMove;
+            EasyJoystick.On_JoystickMoveEnd -= JoystickMoveEnd;
+        }
+
+
     }
 }
 

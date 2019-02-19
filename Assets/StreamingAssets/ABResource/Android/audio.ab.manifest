@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 3115897824
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a85ff1be4d9822caa20264e797fd17ac
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c516f2a3b2b6b67ef759f6410a790acd
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Game/Art/Voice/Player/Main/Up.wav
+- Assets/Game/Art/Voice/Player/Main/Down.wav
+- Assets/Game/Art/Voice/Arrow/Arrow.wav
+- Assets/Game/Art/Voice/Player/Game/UnityChanAttack.wav
+Dependencies: []

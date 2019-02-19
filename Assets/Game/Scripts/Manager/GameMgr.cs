@@ -23,9 +23,9 @@ namespace Game
         IEnumerator createEnegine;
        public void Init()
        {
+            ScoreMgr.Instance.ScoreClear();
             Player.Instance.PlayerInit();
-            EnemyMgr.Instance.Init();
-            ScoreMgr.Instance.Init();
+            EnemyMgr.Instance.GameInit();
             Start();
         }
 
@@ -72,6 +72,7 @@ namespace Game
             {
                 EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StopCoroutine, createEnegine);
             }
+            EventMgr.Instance.Trigger((int)EventID.PlayerEvent.MoveJoystrick,(object)true);
        }
         public void Continue()
         {
@@ -87,15 +88,8 @@ namespace Game
 
        public void Over()
        {
-            if (createEnemy != null)
-            {
-                EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StopCoroutine, createEnemy);
-            }
-            if (createEnegine != null)
-            {
-                EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StopCoroutine, createEnegine);
-            }
-
+            EventMgr.Instance.Trigger((int)EventID.UIEvent.GameOverPanel,(object)true);
+            Pause();
         }
     }
 }

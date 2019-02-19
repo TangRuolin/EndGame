@@ -32,16 +32,23 @@ namespace Game
         public GameObject Enegine { get; private set; }
 
         public Sprite[] loadBG { get; private set; }
+        public AudioClip[] playerVoice { get; private set; }
         private IEnumerator loadResourceContent;
         private IEnumerator loadResourceLoadBG;
-
+        private IEnumerator loadResourceAudio;
+        private IEnumerator loadPlayerVoice;
+        private Dictionary<string, AudioClip> audioMap;
         public void Init()
         {
-            if (loadResourceContent != null) return;
+            audioMap = new Dictionary<string, AudioClip>();
             loadResourceContent = LoadFromContent();
             EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StartCoroutine, loadResourceContent);
             loadResourceLoadBG = LoadBG();
             EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StartCoroutine, loadResourceLoadBG);
+            loadResourceAudio = LoadAudio();
+            EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StartCoroutine, loadResourceAudio);
+            loadPlayerVoice = LoadPlayerVoice();
+            EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StartCoroutine, loadPlayerVoice);
         }
 
         /// <summary>
@@ -105,7 +112,43 @@ namespace Game
             yield return requst;
             AssetBundle ab = requst.assetBundle;
             loadBG = ab.LoadAllAssets<Sprite>();
+            ab.Unload(false);
+            EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StopCoroutine, loadResourceLoadBG);
         }
+
+        IEnumerator LoadAudio()
+        {
+            AssetBundleCreateRequest requst = AssetBundle.LoadFromFileAsync(GetSaPathForIO() + "audio.ab");
+            yield return requst;
+            AssetBundle ab = requst.assetBundle;
+            string[] name = JsonMgr.Instance.contentInfo.audioName;
+            foreach (var i in name)
+            {
+                audioMap.Add(i,ab.LoadAsset<AudioClip>(i));
+            }
+            ab.Unload(false);
+            EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StopCoroutine, loadResourceAudio);
+        }
+        public AudioClip GetAudio(string name)
+        {
+            if (!audioMap.ContainsKey(name))
+            {
+                return null;
+            }
+            return audioMap[name];
+        }
+
+        IEnumerator LoadPlayerVoice()
+        {
+            AssetBundleCreateRequest requst = AssetBundle.LoadFromFileAsync(GetSaPathForIO() + "playervoice.ab");
+            yield return requst;
+            AssetBundle ab = requst.assetBundle;
+            playerVoice = ab.LoadAllAssets<AudioClip>();
+            ab.Unload(false);
+            EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StopCoroutine, loadPlayerVoice);
+        }
+
+
     }
 }
 

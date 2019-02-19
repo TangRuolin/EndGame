@@ -14,6 +14,7 @@ namespace Game
                 if (_instance == null)
                 {
                     _instance = new ScoreMgr();
+                    _instance.Init();
                 }
                 return _instance;
             }

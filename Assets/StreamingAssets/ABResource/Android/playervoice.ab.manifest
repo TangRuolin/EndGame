@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 3660861777
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 73b8ff0a0e3a68e687f641b3439ca303
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c516f2a3b2b6b67ef759f6410a790acd
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Game/Art/Voice/Player/Game/voice1.wav
+- Assets/Game/Art/Voice/Player/Game/voice3.wav
+- Assets/Game/Art/Voice/Player/Game/voice2.wav
+- Assets/Game/Art/Voice/Player/Game/voice5.wav
+- Assets/Game/Art/Voice/Player/Game/voice4.wav
+Dependencies: []

@@ -11,11 +11,12 @@ namespace Game
         float time = 0;//用于计算改变动画的时间
         bool touch;//用于防止多次触屏导致动作错误
         Animator anim;
-
+        private AudioSource sound;
         private void OnEnable()
         {
-            anim = this.GetComponent<Animator>();
+            anim = GetComponent<Animator>();
             touch = true;
+            sound = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -90,6 +91,7 @@ namespace Game
         {
             if (anim == null) return;
             anim.SetBool("Time", true);
+            
         }
         /// <summary>
         /// 触发动作1
@@ -98,6 +100,7 @@ namespace Game
         {
             if (anim == null) return;
             anim.SetBool("touch1", true);
+           
         }
         /// <summary>
         /// 触发动作2
@@ -106,9 +109,28 @@ namespace Game
         {
             if (anim == null) return;
             anim.SetBool("touch2", true);
+            //StartCoroutine(musicPlay());
+        }
+        /// <summary>
+        /// 播放声音
+        /// </summary>
+        public void DownMusicPlay()
+        {
+            //yield return new WaitForSeconds(2f);
+            sound.volume = AudioMgr.Instance.GetSoundNum();
+            sound.clip = ResourceLoadMgr.Instance.GetAudio("Down");
+            sound.Play();
         }
 
-
+        /// <summary>
+        /// 播放声音
+        /// </summary>
+        public void UpMusicPlayer()
+        {
+            sound.volume = AudioMgr.Instance.GetSoundNum();
+            sound.clip = ResourceLoadMgr.Instance.GetAudio("Up");
+            sound.Play();
+        }
         /// <summary>
         /// 用于动画的时间计算
         /// </summary>

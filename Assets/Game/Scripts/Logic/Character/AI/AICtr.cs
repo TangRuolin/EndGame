@@ -37,9 +37,13 @@ namespace Game
         public float fullBlood;
         [HideInInspector]
         public bool isBlood;
+        private bool hasAdd;
+        private bool isAttack;
         // Use this for initialization
         public void Init(bool isTrack)
         {
+            isAttack = false;
+            hasAdd = false;
             agent = this.GetComponent<NavMeshAgent>();
             anim = this.GetComponent<Animator>();
             target = GameObject.Find("Player") ;
@@ -90,23 +94,25 @@ namespace Game
             //        isTrackTarget = true;
             //    }
             //}
-            if(distance <= Const.aiAttackDis)
+            if (distance <= Const.aiAttackDis&&!isAttack)
             {
+                isAttack = true;
                 Attack(attackAnim);
             }
             //if(isTrackTarget && distance > Const.aiAttackDis)
             //{
             //    StopAttack();
             //}
-            if(distance <= Const.playerAttackDis)
+            if(distance <= Const.playerAttackDis &&!hasAdd)
             {
                 self.distance = distance;
                 self.pos = transform.position;
                 object meg = self;
                 EventMgr.Instance.Trigger((int)EventID.PlayerEvent.addAttackMonster,meg);
             }
-            if(distance > Const.playerAttackDis)
+            if(distance > Const.playerAttackDis && hasAdd)
             {
+                hasAdd = false;
                 object meg = self;
                 EventMgr.Instance.Trigger((int)EventID.PlayerEvent.removeAttackMonster, meg);
             }
@@ -119,21 +125,14 @@ namespace Game
         /// </summary>
         private void Attack(float attackNum)
         {
-            if (attackJudge != null)
-            {
-                return;
-            }
             transform.LookAt(target.transform.position);
             if (anim == null)  return;
             anim.SetBool("Attack",true);
             StopMove();
             anim.SetFloat("AttackAnim",attackNum);
-            if (attackJudge != null)
-            {
-                StopCoroutine(attackJudge);
-            }
             attackJudge = AttackJudge();
             StartCoroutine(attackJudge);
+           
         }
         /// <summary>
         /// 改变移动方式(动画)
@@ -154,6 +153,7 @@ namespace Game
         /// </summary>
         private void StopAttack()
         {
+            isAttack = false;
             if (anim == null) return;
             anim.SetBool("Attack", false);
             StartMove();
@@ -191,6 +191,7 @@ namespace Game
         /// </summary>
         private void Dead()
         {
+            hasAdd = true;
             if (anim == null) return;
             anim.SetBool("Dead",true);
             StopMove();
@@ -249,7 +250,7 @@ namespace Game
                     if (angle <= Const.aiAttackAngle / 2)
                     {
                         EventMgr.Instance.Trigger((int)EventID.PlayerEvent.damage,(object)attack);
-                    }
+                     }
                 }
                 else if(Vector3.Distance(transform.position, target.transform.position) > Const.aiAttackDis)
                 {

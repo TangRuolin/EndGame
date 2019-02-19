@@ -94,6 +94,14 @@
        ],
        "skillEnegineNum":[
        		1,1,2
+       ],
+       "audioName":[
+            "PlayerAttack",
+            "Up",
+            "Down",
+            "AIAttack",
+            "Arrow",
+            "UnityChanAttack"
        ]
       
 }

@@ -16,7 +16,7 @@ namespace Game
         public static System.Random random = new System.Random(); // 适用于大多数情况的随机数random
        // public static  string JsonPath = Application.streamingAssetsPath+"/Json/";//Json文件的下载路径
         public const float mainPlayerTime = 10;
-        public const int enemyPoolLimit = 0;
+        public const int enemyPoolLimit = 5;
         public const int eneginePoolLimit = 15;
 
         public const int playerMoveSpe = 8;//玩家正常的移速
@@ -27,6 +27,8 @@ namespace Game
         public const float playerAttackNum = 10;//玩家的伤害
         public const float playerBloodLimit = 1000;
         public const float playerEnegineLimit = 10;
+        public const float playerVoicePlayerSpd = 10;
+
 
         public const float attackTimeUnit = 1.4f;//玩家攻击的单位时间
         public const float attackTimeUnitQ = 0.7f;//狂暴后玩家攻击的单位时间

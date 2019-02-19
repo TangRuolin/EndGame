@@ -19,27 +19,39 @@ public class AudioMgr {
     }
 
     private float musicNum;
+    private float soundNum;
     /// <summary>
     /// 初始化
     /// </summary>
     private void Init()
     {
         musicNum = PlayerPrefs.GetFloat("musicNum",1);
+        soundNum = PlayerPrefs.GetFloat("soundNum", 1);
     }
 
     public float GetMusicNum()
     {
         return musicNum;
     }
+    public float GetSoundNum()
+    {
+        return soundNum;
+    }
     public void ChangeMusicNum(float num)
     {
         musicNum = num;
         Camera.main.GetComponent<AudioSource>().volume = musicNum;
     }
-    public void SetMusicNum(float num)
+    public void ChangeSoundNum(float num)
     {
-        musicNum = num;
+        soundNum = num;
+    }
+
+
+    public void SetMusicNum()
+    {
         PlayerPrefs.SetFloat("musicNum",musicNum);
+        PlayerPrefs.SetFloat("soundNum",soundNum);
     }
 
 }

@@ -33,6 +33,7 @@ namespace Game
             LoadPanel = 102,
             BloodPanel = 103,
             CtrPanel = 104,
+            GameOverPanel = 105,
         }
 
         /// <summary>
@@ -59,6 +60,7 @@ namespace Game
             clearMonsterList = 304,
             damage = 305,
             attackSpdChange = 306,
+            MoveJoystrick = 307,
         }
 
         /// <summary>
@@ -76,12 +78,7 @@ namespace Game
         /// </summary>
         public enum AudioEvent
         {
-            MainBGM = 501,
-            GameBGM = 502,
-            MainPlayerSound = 503,
-            GamePlayerSound = 504,
-            AISound = 505,
-            GameSound = 506,
+           Arrow = 501,
         }
     }
 }

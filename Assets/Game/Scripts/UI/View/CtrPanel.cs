@@ -23,14 +23,13 @@ namespace Game
         private List<Text> skillCDText = new List<Text>();
         private List<GameObject> skillBlack=  new List<GameObject>();
        
-
         private List<bool> isSkill = new List<bool>();
         private List<bool> isEnegineEnthough = new List<bool>();
 
         // Use this for initialization
         void Start()
         {
-            arrowModel = ResourceLoadMgr.Instance.arrowModel;
+            arrowModel = Player.Instance.arrowModel;
             isQuick = false;
             skillTime = JsonMgr.Instance.contentInfo.skillTime;
             skillCD = JsonMgr.Instance.contentInfo.skillCD;
@@ -47,10 +46,7 @@ namespace Game
             }
             EventMgr.Instance.Add((int)EventID.UIEvent.CtrPanel, Enegine);
         }
-        private void OnEnable()
-        {
-            EasyJoystick.On_JoystickMove += JoystickMove;
-        }
+       
 
         void JoystickMove(MovingJoystick move)
         {
@@ -114,7 +110,7 @@ namespace Game
             isSkill[index] = false;
             StartCoroutine(CDTimeCount(index));
             skillMask[index].SetActive(true);
-            Player.Instance.UseEngine(skillCD[index]);
+            Player.Instance.UseEngine(skillEnegNum[index]);
         }
 
         /// <summary>
@@ -165,6 +161,7 @@ namespace Game
         {
             if (isSkill[2])
             {
+                EasyJoystick.On_JoystickMove -= JoystickMove;
                 SkiilJoystick.GetComponent<EasyJoystick>().areaColor = new Color32(255, 255, 255, 0);
                 SkiilJoystick.GetComponent<EasyJoystick>().touchColor = new Color32(255, 255, 255, 0);
                 ShanxianRange.SetActive(false);
@@ -184,6 +181,7 @@ namespace Game
                 SkiilJoystick.GetComponent<EasyJoystick>().areaColor = new Color32(255, 255, 255, 255);
                 SkiilJoystick.GetComponent<EasyJoystick>().touchColor = new Color32(255, 255, 255, 255);
                 StartCoroutine(SkillBtnSmall(skill[2]));
+                EasyJoystick.On_JoystickMove += JoystickMove;
                 ShanxianRange.SetActive(true);
                 closeSkill.SetActive(true);
                 isFlash = true;
@@ -263,8 +261,12 @@ namespace Game
                 if (Player.Instance.HasEnemy())
                 {
                     MonsterMeg attackMos = Player.Instance.GetAttackMonster();
-                    this.transform.LookAt(attackMos.pos);
+                    Player.Instance.go.transform.LookAt(attackMos.pos);
+                    //arrowModel.transform.LookAt(attackMos.pos);
                 }
+               
+                arrowModel.transform.rotation = Player.Instance.go.transform.rotation;
+                
                 Player.Instance.Attack();
                 attackTime = 0;
             }

@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 89128923
+CRC: 2587786668
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -7,4 +7,10 @@ AssetBundleManifest:
       Dependencies: {}
     Info_1:
       Name: loadbg.ab
+      Dependencies: {}
+    Info_2:
+      Name: audio.ab
+      Dependencies: {}
+    Info_3:
+      Name: playervoice.ab
       Dependencies: {}

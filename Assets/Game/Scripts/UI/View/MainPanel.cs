@@ -19,7 +19,7 @@ namespace Game
         // Use this for initialization
         void Start()
         {
-            isOut = false;
+            isOut = true;
             btn_panel = GameObject.Find("btn_Panel").transform;
             btn_panel.Find("btn_setting").GetComponent<Button>().onClick.AddListener(delegate () { Btn_Click(settingPanel); });
             btn_panel.Find("btn_startgame").GetComponent<Button>().onClick.AddListener(delegate () { Btn_Click(GameStartPanel); });
@@ -27,6 +27,7 @@ namespace Game
             btn_panel.Find("btn_Exit").GetComponent<Button>().onClick.AddListener(delegate () { Btn_Click(ExitPanel); });
             btn_outIn = btn_panel.Find("btn_OutIn");
             btn_outIn.GetComponent<Button>().onClick.AddListener(Btn_OutIn);
+            Camera.main.GetComponent<AudioSource>().volume = AudioMgr.Instance.GetMusicNum();
         }
 
         // Update is called once per frame

@@ -6,16 +6,20 @@ namespace Game
 {
     public class GameManager : MonoBehaviour
     {
+
+       
+       
         private void Awake()
         {
             DontDestroyOnLoad(this);
             this.gameObject.AddComponent<Utils>().Init();
-            Player.Instance.Init();
             ResourceLoadMgr.Instance.Init();
             JsonMgr.Instance.Init();
-            ScoreMgr.Instance.Init();
+          
         }
+
         
+       
 
 
     }

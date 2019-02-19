@@ -44,7 +44,10 @@ namespace Game
         private Transform lineCast;//箭矢的轨迹
         private Vector3 prePos;
         private Vector3 nowPos;
-        
+        private AudioClip[] playerVoice;
+
+
+
         /// <summary>
         /// 初始化
         /// </summary>
@@ -52,10 +55,13 @@ namespace Game
         {
             monsterList = new List<MonsterMeg>();
             arrows = new List<GameObject>();
+            arrowModel = ResourceLoadMgr.Instance.arrowModel;
+            attackNum = Const.playerAttackNum;
             EventMgr.Instance.Add((int)EventID.PlayerEvent.addAttackMonster, AddMonster);
             EventMgr.Instance.Add((int)EventID.PlayerEvent.removeAttackMonster, RemoveMonster);
             EventMgr.Instance.Add((int)EventID.PlayerEvent.clearMonsterList, ClearMonster);
             EventMgr.Instance.Add((int)EventID.PlayerEvent.damage, Damage);
+            playerVoice = ResourceLoadMgr.Instance.playerVoice;
            // PlayerInit();
         }
         /// <summary>
@@ -63,10 +69,8 @@ namespace Game
         /// </summary>
         public void PlayerInit()
         {
-            arrowModel = ResourceLoadMgr.Instance.arrowModel;
-            attackNum = Const.playerAttackNum;
-            moveSpe = 0;
             blood = Const.playerBloodLimit;
+            moveSpe = 0;
             enegine = 0;
             isMoveQuick = false;
             isAttackQuick = false;
@@ -75,16 +79,7 @@ namespace Game
             monsterList.Clear();
             arrows.Clear();
         }
-        /// <summary>
-        /// 游戏结束后玩家消除
-        /// </summary>
-        //public void PlayerDestroy()
-        //{
-        //    //if (selfGo != null)
-        //    //    GameObject.Destroy(selfGo);
-        //}
         
-       
         ///<summary>
         ///增加能量
         ///</summary>
@@ -221,6 +216,7 @@ namespace Game
                 object meg = 1;
                 EventMgr.Instance.Trigger((int)EventID.AnimEvent.PlayerAttack, meg);
             }
+           
             //if (_attackNum == 3)
             //{
             //    CreateArrow(3);
@@ -284,6 +280,7 @@ namespace Game
             arrow.SetActive(true);
             yield return new WaitForSeconds(Const.arrowMoveYieldTime);
             prePos = lineCast.position;
+            EventMgr.Instance.Trigger((int)EventID.AudioEvent.Arrow,(object)true);
             while(distance < Const.arrowMoveDis)
             {
                 nowPos = lineCast.position;
@@ -366,6 +363,7 @@ namespace Game
                 return;
             }
             float damage = (float)meg;
+            Debug.Log("damage:"+damage);
             if(damage >= blood)
             {
                 blood = 0;
@@ -402,6 +400,13 @@ namespace Game
                 yield return new WaitForSeconds(0.01f);
 
             }
+        }
+
+
+        public void GameOver()
+        {
+            EventMgr.Instance.Trigger((int)EventID.UtilsEvent.StopCoroutine,arrowMove);
+
         }
 
     }

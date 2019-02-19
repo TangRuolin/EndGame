@@ -149,6 +149,8 @@
     <Compile Include="Assets\Game\Scripts\Logic\Character\Player\PlayerCtr.cs" />
     <Compile Include="Assets\Game\Scripts\Logic\Skill\ColliderEvent.cs" />
     <Compile Include="Assets\Game\Scripts\Logic\Skill\EnegineEvent.cs" />
+    <Compile Include="Assets\Game\Scripts\Logic\Voice\ArrowVoice.cs" />
+    <Compile Include="Assets\Game\Scripts\Logic\Voice\PlayerVoice.cs" />
     <Compile Include="Assets\Game\Scripts\Manager\AudioMgr.cs" />
     <Compile Include="Assets\Game\Scripts\Manager\EnemyMgr.cs" />
     <Compile Include="Assets\Game\Scripts\Manager\Event\EventID.cs" />

@@ -16,6 +16,7 @@ namespace Game
                 if (_instance == null)
                 {
                     _instance = new EnemyMgr();
+                    _instance.Init();
                 }
                 return _instance;
             }
@@ -56,7 +57,7 @@ namespace Game
             //HpPool.Clear();
             EneginePool.Clear();
         }
-    
+       
 
         /// <summary>
         /// 生成敌人

@@ -38,6 +38,7 @@ namespace Game
             public int[] skillTime;
             public int[] skillCD;
             public int[] skillEnegineNum;
+            public string[] audioName;
         }
 
         /// <summary>
